@@ -6,6 +6,7 @@ body{
     width: 100vw;
     height: 100vh;
     background-color: #818cf8;
+    overflow: hidden;
 }
 
 header{
@@ -40,5 +41,112 @@ h1{
     border: none;
     box-shadow: 1px 1px #27272a;
     background-color: #fdba74;
+    cursor: pointer;
 }
+
+.booklist {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+  
+.booklist .book {
+    background: #fdba74;
+    min-width: 200px;
+    min-height: 100px;   
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #fdba74;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+  }
+
+  .modal-content h2{
+    font-family: 'Silkscreen';
+    font-size: 2.75rem;
+    padding: 0;
+    margin: 0;
+    color: #4f46e5;
+  }
+
+  .close-modal{
+    position: absolute;
+    right: .5rem;
+    top: -0.1rem;
+    cursor: pointer
+  }
+
+
+  form, label{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+  }
+
+  label {
+    text-align: center;
+    font-family: 'Silkscreen';
+    color: #4f46e5;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .form-input{
+    border: 1px solid #888;
+    border-radius: 5px;
+    height: 1.5rem;
+    width: 100%;
+  }
+
+  .error-message{
+    display: none; 
+    font-family: 'Times New Roman';
+    color: red;
+    font-size: .75rem;
+  }
+
+  .button-div{
+    padding: .5rem;
+    display: flex;
+    gap: 2rem;
+  }
+
+  .button-div button{
+    width: 6rem;
+    height: 3rem;
+    border-radius: 10%;
+    background-color: #4f46e5;
+    font-family: 'Silkscreen';
+    font-size: 1.5rem;
+    color:#fdba74;
+  }
+
+  .button-div button:hover{
+    background-color: #818cf8;
+    cursor: pointer;
+  }
 
