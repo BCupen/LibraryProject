@@ -9,6 +9,7 @@ const addBookButton = document.querySelector('.add-book');
 const closeModalButton= document.querySelector('.close-modal');
 const submitButton = document.querySelector('.submit-book');
 const clearFieldsButton = document.querySelector('.clear-fields');
+//const deleteBookButton = document.querySelector('.delete');
 
 //get form fields
 const bookTitleField = document.querySelector('#book-title');
@@ -21,6 +22,8 @@ const titleErrMsg = bookTitleField.nextElementSibling;
 const authorErrMsg = bookAuthorField.nextElementSibling;
 const pagesErrMsg = bookPagesField.nextElementSibling;
 
+//get book container
+const bookList = document.querySelector('.booklist');
 class Book{
     constructor(book){
         this.title = book.title;
@@ -33,6 +36,49 @@ class Book{
         this.hasRead = !this.hasRead;
     }
 
+    generateHTML(){
+        const template = `
+            <div class="book" data-index="${myLibrary.indexOf(this)}">
+                <span class="b-title">
+                    <h3>${this.title}</h3>
+                </span>
+                <span>
+                    Written by
+                    <span class="b-author"> ${this.author}</span>
+                </span>
+                <span>
+                    Number of pages: 
+                    <span class="b-pages">${this.numPages}</span>
+                </span>
+                <span>
+                    Read?
+                    <span class="hasRead" onclick="toggleRead(this)">
+                     ${(this.hasRead) ? '✔️' : '❌'}
+                    </span>
+                </span>
+                <span class="delete" onclick="deleteBook(this)">
+                    <img src="assets/trash-can-outline.png" alt="del"> 
+                </span>
+            </div>
+        `;
+
+        return template;
+    }
+}
+
+function toggleRead(e){
+    let book = e.parentNode.parentNode;
+    const bookIndex = book.getAttribute('data-index');
+    myLibrary[bookIndex].toggleHasRead();
+
+    displayBooks();
+}
+
+function deleteBook(e){
+    const book = e.parentNode;
+    const bookIndex = book.getAttribute('data-index');
+    myLibrary.splice(bookIndex, 1);
+    displayBooks();
 }
 
 function addBookToLibrary(){
@@ -44,12 +90,27 @@ function addBookToLibrary(){
 
     const newBook = new Book(book);
     myLibrary.push(newBook);
-    console.log(myLibrary);
 
     form.reset();
     titleErrMsg.style.display = 'none';
     authorErrMsg.style.display = 'none';
     pagesErrMsg.style.display = 'none';
+}
+
+function clearBookContainer(){
+    let currDiv = bookList.firstElementChild;
+    while(currDiv.className=='book'){
+        currDiv.remove();
+        currDiv = bookList.firstElementChild;
+    }
+}
+
+function displayBooks(){
+    clearBookContainer();
+
+    myLibrary.forEach(book =>{
+        bookList.insertAdjacentHTML('afterbegin', book.generateHTML());        
+    })
 }
 
 submitButton.addEventListener('click', function(e){
@@ -67,12 +128,15 @@ submitButton.addEventListener('click', function(e){
     if(bookTitleField.value!='' && bookAuthorField.value!='' && bookPagesField.value!=''){
         addBookToLibrary();
     }
-    
+
+    modal.style.display = 'none';
+    displayBooks();
 })
 
 addBookButton.addEventListener('click', function(e){
     modal.style.display = 'block';
 });
+
 
 clearFieldsButton.addEventListener('click', function(e){
     titleErrMsg.style.display = 'none';

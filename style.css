@@ -56,7 +56,35 @@ h1{
 .booklist .book {
     background: #fdba74;
     min-width: 200px;
-    min-height: 100px;   
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem; 
+    gap: .5rem;  
+    font-family: 'Silkscreen';
+    font-size: 1.5rem;
+    border-radius: 10%;
+}
+
+.b-title, .b-author, .b-pages{
+  color:#4f46e5;
+  font-family: 'Silkscreen';
+  font-size: 1.5rem;
+}
+
+.hasRead:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.delete{
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.delete:hover{
+ transform: scale(1.3);
 }
 
 .modal {
