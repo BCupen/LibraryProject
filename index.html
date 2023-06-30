@@ -1,60 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library Project</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <div class="title">
-           <h1>Basic Library</h1> 
-        </div>
-        <div class="add-btn-div">
-           <button class="add-book">
-            <img src="./assets/plus-thick-white.png" alt="ADD">
-           </button> 
-        </div>    
-    </header>
-    <main class="booklist">
-        <div class="modal">
-            <div class="modal-content">
-                <h2>Add Book</h2>
-                <span class="close-modal">
-                    <img src="assets/close.png" alt="X">
-                </span>
-                <form class="add-book-form">
-                    <label for="book-title">
-                        Book Title*
-                        <input class="form-input" type="text" name="book-title" id="book-title" placeholder="Title...">
-                        <span class="error-message">This is a required field.</span>
-                    </label>
-                    <label for="book-author">
-                        Book Author*
-                        <input class="form-input" type="text" name="book-author" id="book-author" placeholder="Author...">
-                        <span class="error-message">This is a required field.</span>
-                    </label>
-                    <label for="book-pages">
-                        Number of Pages*
-                        <input class="form-input" type="number" name="book-pages" id="book-pages" placeholder="Number of Pages...">
-                        <span class="error-message">This is a required field.</span>
-                    </label>
-                    <label for="book-read-status">
-                        Read?*
-                        <input class="form-input read-checkbox" type="checkbox" name="book-read-status" id="book-read-status">
-                    </label>
-                    <div class="button-div">
-                        <button type="button" class="submit-book">Add</button>
-                        <button type="reset" class="clear-fields">Clear</button>
-                    </div>
-                    
-                </form>
-            </div>
-        </div>
-    </main>
-
-    <script src="main.js"></script>
-</body>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
