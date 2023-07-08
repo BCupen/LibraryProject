@@ -6,21 +6,23 @@ interface FieldInputProps {
     labelContent: string;
     placeholder?: string;
     type?: string;
+    value?: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>, stateName: string)=>void;
 }
 
-export default function FieldInput({ id, labelContent, placeholder, type }: FieldInputProps) {
+export default function FieldInput({ id, labelContent, placeholder, type, value, onChange }: FieldInputProps) {
     const [isFieldValid, setIsFieldValid] = useState(true);
 
     const validateField = (value: string) => {
         if (value)
             setIsFieldValid(true);
-        return setIsFieldValid(false);
+        else setIsFieldValid(false);
     }
 
     return (
         <StyledLabel htmlFor={id}>
             <StyledFieldTitle>{labelContent}</StyledFieldTitle>
-            <StyledInput type={type ? type : 'text'} name={id} id={id} placeholder={placeholder ? placeholder : ''} onBlur={(e)=>validateField(e.target.value)}/>
+            <StyledInput type={type ? type : 'text'} name={id} id={id} placeholder={placeholder ? placeholder : ''} value={value} onChange={(e)=> onChange(e, id)} onBlur={(e)=>validateField(e.target.value)}/>
             <StyledErrorMessage display={!isFieldValid}>This field is required.</StyledErrorMessage>
         </StyledLabel>
     );

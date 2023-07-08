@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
-export default function FormButtons() {
+interface FormButtonsProps{
+    reset: () => void;
+}
+
+export default function FormButtons({reset}: FormButtonsProps) {
     return (
         <StyledDiv>
             <StyledButton type='submit'>Add</StyledButton>
-            <StyledButton type='reset'>Clear</StyledButton>
+            <StyledButton type='reset' onClick={()=>reset()}>Clear</StyledButton>
         </StyledDiv>
     );
 }

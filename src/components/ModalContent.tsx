@@ -3,12 +3,55 @@ import FieldInput from './FieldInput';
 import CheckboxInput from './CheckboxInput';
 import FormButtons from './FormButtons';
 import {FaTimes} from 'react-icons/fa';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DisplayModalContext } from '../contexts/DisplayModalContext';
+import { BookContext } from '../contexts/BookContext';
 
 export default function ModalContent(){
 
     const { setDisplayModal } = useContext(DisplayModalContext);
+    const {addBook} = useContext(BookContext);
+
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [pages, setPages] = useState('');
+    const [hasRead, setHasRead] = useState(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>, stateName: string) =>{
+        switch (stateName) {
+            case 'book-title':
+                setTitle(e.target.value);
+                break;
+            case 'book-author':
+                setAuthor(e.target.value);
+                break;
+            case 'book-pages':
+                setPages(e.target.value);
+                break;
+            case 'book-read-status':
+                setHasRead(!hasRead);
+                break;
+            default:
+                console.log('Invalid state');
+        }
+
+    }
+
+    const handleSubmit = (e: React.FormEvent)=>{
+        e.preventDefault();
+        const newBook = {title, author, pages, hasRead};
+
+        addBook(newBook);
+        reset();
+        setDisplayModal(false);
+    }
+
+    const reset = () =>{
+        setTitle('');
+        setAuthor('');
+        setPages('');
+        setHasRead(false);
+    }
 
     return (
         <StyledModalContent>
@@ -16,12 +59,12 @@ export default function ModalContent(){
                 <FaTimes size='26' color='#818cf8' onClick={()=>setDisplayModal(false)}/>
             </CloseModalSpan>
             <ModalTitle>Add Book</ModalTitle>
-            <StyledForm>
-                <FieldInput id='book-title' labelContent='Book Title*' placeholder='Title...'/>
-                <FieldInput id='book-author' labelContent='Book Author*' placeholder='Author...'/>
-                <FieldInput type='number' id='book-pages' labelContent='Number of Pages*' placeholder='Number of Pages...'/>
-                <CheckboxInput id='book-read-status' labelContent='Read?*'/>
-                <FormButtons />
+            <StyledForm onSubmit={(e) => handleSubmit(e)}>
+                <FieldInput id='book-title' labelContent='Book Title*' placeholder='Title...' value={title} onChange={handleChange}/>
+                <FieldInput id='book-author' labelContent='Book Author*' placeholder='Author...' value={author} onChange={handleChange} />
+                <FieldInput type='number' id='book-pages' labelContent='Number of Pages*' placeholder='Number of Pages...' value={pages} onChange={handleChange}/>
+                <CheckboxInput id='book-read-status' labelContent='Read?*' checked={hasRead} onChange={handleChange}/>
+                <FormButtons reset={reset}/>
             </StyledForm>
         </StyledModalContent>
     );
