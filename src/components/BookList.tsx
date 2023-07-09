@@ -11,7 +11,7 @@ export default function BookList(){
     return (
         <StyledDiv>
             {books.map((book: any)=> 
-                <Book {...book} />
+                <Book key={book.id} {...book} />
             )}
         </StyledDiv>
     );

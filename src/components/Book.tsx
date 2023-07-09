@@ -1,20 +1,28 @@
 import styled from 'styled-components'
 import { BookProps } from "../utils";
 import { FaToggleOff, FaToggleOn, FaTrashAlt } from 'react-icons/fa';
+import { useContext } from 'react';
+import { BookContext } from '../contexts/BookContext';
 
 
-//TODO: toggle hasRead
-export default function Book({title, author, pages, hasRead}: BookProps){
+interface ThisBookProps extends BookProps{
+    id?: string;
+}
+
+
+export default function Book({title, author, pages, hasRead, id}: ThisBookProps){
+
+    const { toggleRead, deleteBook } = useContext(BookContext);
 
     return (
         <Card>
             <Title>{title}</Title>
             <span>Written By <StyledP>{author}</StyledP></span>
             <span>Number of Pages: <StyledP>{pages}</StyledP></span>
-            <span>Read? <ReadSpan>{hasRead ? <FaToggleOn color='green' size='32'/> : <FaToggleOff color='red' size='32'/>}</ReadSpan>
+            <span>Read? <ReadSpan>{hasRead ? <FaToggleOn color='green' size='32' style={{cursor:'pointer'}} onClick={()=> toggleRead(id, !hasRead)}/> : <FaToggleOff color='red' size='32' style={{cursor:'pointer'}} onClick={()=> toggleRead(id, !hasRead)}/>}</ReadSpan>
             </span>
             <DeleteSpan>
-                <FaTrashAlt />
+                <FaTrashAlt style={{cursor:'pointer'}} onClick={()=>deleteBook(id)}/>
             </DeleteSpan>
         </Card>
     );

@@ -28,6 +28,7 @@ export default function AuthContextProvider({children}: AuthContextProviderProps
 
     const googleSignOut = ()=>{
         signOut(auth);
+        setUser({});
     }
 
     useEffect(()=>{ 
